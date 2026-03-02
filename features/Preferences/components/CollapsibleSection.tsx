@@ -13,6 +13,8 @@ interface CollapsibleSectionProps {
   className?: string;
   /** Unique ID for session storage persistence */
   storageKey?: string;
+  /** When true, applies a full border to the header instead of just a bottom border */
+  fullBorder?: boolean;
 }
 
 const levelStyles = {
@@ -44,6 +46,7 @@ const CollapsibleSection = ({
   level = 'section',
   className,
   storageKey,
+  fullBorder = false,
 }: CollapsibleSectionProps) => {
   const { playClick } = useClick();
 
@@ -79,7 +82,9 @@ const CollapsibleSection = ({
           'group flex w-full flex-row items-center gap-2 text-left',
           'hover:cursor-pointer',
           styles.header,
-          styles.border,
+          fullBorder
+            ? 'rounded-2xl border-2 border-(--border-color) px-4 py-3'
+            : styles.border,
         )}
         onClick={handleToggle}
       >

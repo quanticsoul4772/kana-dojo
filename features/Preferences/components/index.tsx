@@ -23,7 +23,8 @@ const Settings = () => {
     <div className='flex flex-col gap-6'>
       {/* Behavior Section */}
       <CollapsibleSection
-        title='Behavior'
+        title='BEHAVIOR'
+        fullBorder
         icon={<Joystick size={28} />}
         level='section'
         defaultOpen={true}
@@ -34,7 +35,8 @@ const Settings = () => {
 
       {/* Display Section */}
       <CollapsibleSection
-        title='Display'
+        title='DISPLAY'
+        fullBorder
         icon={<Palette size={28} />}
         level='section'
         defaultOpen={true}
