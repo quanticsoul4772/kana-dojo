@@ -56,28 +56,18 @@ const PreferencesSectionNav = () => {
       const sectionElements = getSectionElements();
       if (sectionElements.length === 0) return;
 
-      const containerTop = scrollContainer.getBoundingClientRect().top;
+      const triggerLine =
+        scrollContainer.getBoundingClientRect().top + ACTIVE_SECTION_OFFSET;
 
-      const nextActiveSection = sectionElements.reduce<SectionId>(
-        (closestSectionId, sectionElement) => {
-          const closestSection = document.getElementById(closestSectionId);
-          if (!closestSection) return sectionElement.id as SectionId;
-
-          const currentDistance = Math.abs(
-            sectionElement.getBoundingClientRect().top -
-              (containerTop + ACTIVE_SECTION_OFFSET),
-          );
-          const closestDistance = Math.abs(
-            closestSection.getBoundingClientRect().top -
-              (containerTop + ACTIVE_SECTION_OFFSET),
-          );
-
-          return currentDistance < closestDistance
-            ? (sectionElement.id as SectionId)
-            : closestSectionId;
-        },
-        sectionElements[0].id as SectionId,
+      const crossedSections = sectionElements.filter(
+        sectionElement =>
+          sectionElement.getBoundingClientRect().top <= triggerLine,
       );
+
+      const nextActiveSection: SectionId =
+        crossedSections.length > 0
+          ? (crossedSections[crossedSections.length - 1].id as SectionId)
+          : (sectionElements[0].id as SectionId);
 
       setActiveSection(currentSection =>
         currentSection === nextActiveSection
