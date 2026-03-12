@@ -103,5 +103,12 @@
   "english": "no/cannot",
   "region": "Chugoku",
   "note": "Prohibitive nuance. (Set 3)"
+}, 
+{
+  "dialect": "なんでやねん",
+  "standardJapanese": "何でだよ",
+  "english": "What are you talking about?!",
+  "region": "Kansai",
+  "note": "Classic comedic retort (tsukkomi). (Set 3)"
 }
 ]
