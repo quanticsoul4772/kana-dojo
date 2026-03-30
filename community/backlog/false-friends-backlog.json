@@ -15,7 +15,7 @@
     "example": "駅前のマンションに住んでいます。",
     "id": 2,
     "issued": false,
-    "completed": false
+    "completed": true
   },
   {
     "termA": "コンセント (konsento)",
@@ -69,7 +69,7 @@
     "example": "去年落ちた試験に今年リベンジする。",
     "id": 8,
     "issued": false,
-    "completed": false
+    "completed": true
   },
   {
     "termA": "クレーム (kureemu)",
@@ -114,7 +114,7 @@
     "example": "ミスしてもドンマイ！",
     "id": 13,
     "issued": false,
-    "completed": false
+    "completed": true
   },
   {
     "termA": "チャレンジ (charenji)",
@@ -195,7 +195,7 @@
     "example": "駅前のマンションに住んでいます。",
     "id": 22,
     "issued": false,
-    "completed": false
+    "completed": true
   },
   {
     "termA": "コンセント (konsento)",
@@ -249,7 +249,7 @@
     "example": "去年落ちた試験に今年リベンジする。",
     "id": 28,
     "issued": false,
-    "completed": false
+    "completed": true
   },
   {
     "termA": "クレーム (kureemu)",
@@ -392,7 +392,7 @@
     "explanation": "Often means slim/stylish, not necessarily intelligent. (Set 3)",
     "example": "彼はスマートな着こなしをしている。",
     "id": 44,
-    "issued": false,
+    "issued": true,
     "completed": false
   },
   {
@@ -429,7 +429,7 @@
     "example": "去年落ちた試験に今年リベンジする。",
     "id": 48,
     "issued": false,
-    "completed": false
+    "completed": true
   },
   {
     "termA": "クレーム (kureemu)",
@@ -474,7 +474,7 @@
     "example": "ミスしてもドンマイ！",
     "id": 53,
     "issued": false,
-    "completed": false
+    "completed": true
   },
   {
     "termA": "チャレンジ (charenji)",
@@ -557,7 +557,7 @@
     "example": "駅前のマンションに住んでいます。",
     "id": 62,
     "issued": false,
-    "completed": false
+    "completed": true
   },
   {
     "termA": "コンセント (konsento)",
@@ -611,7 +611,7 @@
     "example": "去年落ちた試験に今年リベンジする。",
     "id": 68,
     "issued": false,
-    "completed": false
+    "completed": true
   },
   {
     "termA": "クレーム (kureemu)",
@@ -791,7 +791,7 @@
     "example": "去年落ちた試験に今年リベンジする。",
     "id": 88,
     "issued": false,
-    "completed": false
+    "completed": true
   },
   {
     "termA": "クレーム (kureemu)",
@@ -836,7 +836,7 @@
     "example": "ミスしてもドンマイ！",
     "id": 93,
     "issued": false,
-    "completed": false
+    "completed": true
   },
   {
     "termA": "チャレンジ (charenji)",
@@ -917,7 +917,7 @@
     "example": "駅前のマンションに住んでいます。",
     "id": 102,
     "issued": false,
-    "completed": false
+    "completed": true
   },
   {
     "termA": "コンセント (konsento)",
@@ -971,7 +971,7 @@
     "example": "去年落ちた試験に今年リベンジする。",
     "id": 108,
     "issued": false,
-    "completed": false
+    "completed": true
   },
   {
     "termA": "クレーム (kureemu)",
@@ -1016,7 +1016,7 @@
     "example": "ミスしてもドンマイ！",
     "id": 113,
     "issued": false,
-    "completed": false
+    "completed": true
   },
   {
     "termA": "チャレンジ (charenji)",
