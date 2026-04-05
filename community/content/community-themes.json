@@ -250,5 +250,11 @@
     "backgroundColor": "oklch(22.0% 0.018 230.0 / 1)",
     "mainColor": "oklch(80.0% 0.055 215.0 / 1)",
     "secondaryColor": "oklch(62.0% 0.045 240.0 / 1)"
+  },
+  {
+    "id": "sakurajima-ash",
+    "backgroundColor": "oklch(22.0% 0.025 270.0 / 1)",
+    "mainColor": "oklch(65.0% 0.170 25.0 / 1)",
+    "secondaryColor": "oklch(58.0% 0.055 260.0 / 1)"
   }
 ]
