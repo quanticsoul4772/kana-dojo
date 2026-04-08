@@ -19,7 +19,7 @@ import {
 } from 'lucide-react';
 import Effects from '../display/Effects';
 
-const USE_NEW_PREFERENCES_ICON_DESIGN = false;
+const USE_NEW_PREFERENCES_ICON_DESIGN = true;
 
 const Settings = () => {
   return (
