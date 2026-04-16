@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
+import { useState, useEffect, useRef, useCallback, useMemo, type ReactNode } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import clsx from 'clsx';
 import {
@@ -40,6 +40,36 @@ const CHAOS_THEME_GRADIENT = `linear-gradient(
   oklch(74.0% 0.20 355.0 / 1) 88%,
   oklch(66.0% 0.18 25.0 / 1) 100%
 )`;
+
+const floatingIconClassesBySize = {
+  lg: 'motion-safe:animate-float flex h-12 w-12 shrink-0 items-center justify-center rounded-xl sm:rounded-2xl border-b-4 sm:border-b-6 border-(--secondary-color-accent) bg-(--secondary-color) leading-none text-(--background-color) [--float-distance:-4px] [&>svg]:h-7 [&>svg]:w-7',
+  md: 'motion-safe:animate-float flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border-b-4 border-(--secondary-color-accent) bg-(--secondary-color) leading-none text-(--background-color) [--float-distance:-3px] [&>svg]:h-5 [&>svg]:w-5',
+  sm: 'motion-safe:animate-float flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border-b-4 border-(--secondary-color-accent) bg-(--secondary-color) leading-none text-(--background-color) [--float-distance:-2px] [&>svg]:h-4 [&>svg]:w-4',
+} as const;
+
+function FloatingIcon({
+  children,
+  size = 'md',
+  animationDelayClass,
+  className,
+}: {
+  children: ReactNode;
+  size?: keyof typeof floatingIconClassesBySize;
+  animationDelayClass?: string;
+  className?: string;
+}) {
+  return (
+    <span
+      className={clsx(
+        floatingIconClassesBySize[size],
+        animationDelayClass,
+        className,
+      )}
+    >
+      {children}
+    </span>
+  );
+}
 
 const WelcomeModal = () => {
   const t = useTranslations('welcome');
@@ -184,28 +214,29 @@ const WelcomeModal = () => {
             </div>
 
             <div className='space-y-4 text-left'>
-              <div className='flex items-center gap-3 rounded-lg bg-(--background-color) p-3'>
-                <Palette
-                  className='flex-shrink-0 text-(--main-color)'
-                  size={24}
-                />
+              <div className='flex items-center gap-3 rounded-lg bg-(--main-color) p-3'>
+                <FloatingIcon size='md'>
+                  <Palette />
+                </FloatingIcon>
                 <div>
-                  <h3 className='font-semibold text-(--main-color)'>
+                  <h3 className='font-semibold text-(--background-color)'>
                     {t('features.theme.title')}
                   </h3>
-                  <p className='text-sm text-(--secondary-color)'>
+                  <p className='text-sm text-(--background-color)'>
                     {t('features.theme.description')}
                   </p>
                 </div>
               </div>
 
-              <div className='flex items-center gap-3 rounded-lg bg-(--background-color) p-3'>
-                <Type className='flex-shrink-0 text-(--main-color)' size={24} />
+              <div className='flex items-center gap-3 rounded-lg bg-(--main-color) p-3'>
+                <FloatingIcon size='md' animationDelayClass='[animation-delay:120ms]'>
+                  <Type />
+                </FloatingIcon>
                 <div>
-                  <h3 className='font-semibold text-(--main-color)'>
+                  <h3 className='font-semibold text-(--background-color)'>
                     {t('features.font.title')}
                   </h3>
-                  <p className='text-sm text-(--secondary-color)'>
+                  <p className='text-sm text-(--background-color)'>
                     {t('features.font.description')}
                   </p>
                 </div>
@@ -366,7 +397,9 @@ const WelcomeModal = () => {
           <div className='space-y-6'>
             <div className='space-y-2 text-center'>
               <h2 className='flex items-center justify-center gap-2 text-2xl font-bold text-(--main-color)'>
-                <Palette size={28} />
+                <FloatingIcon size='lg'>
+                  <Palette />
+                </FloatingIcon>
                 {t('steps.themes.title')}
               </h2>
               <p className='text-(--secondary-color)'>
@@ -382,7 +415,7 @@ const WelcomeModal = () => {
                     themeSet.name === 'Dark' ||
                     themeSet.name.startsWith('Premium'),
                 )
-                .map(themeSet => {
+                .map((themeSet, themeSetIndex) => {
                   let filteredThemes = themeSet.themes;
 
                   // Only filter Dark themes - show all Base themes
@@ -416,10 +449,14 @@ const WelcomeModal = () => {
                   return (
                     <div key={themeSet.name} className='space-y-3'>
                       <div className='flex items-center gap-2 text-lg font-medium'>
-                        <themeSet.icon
-                          size={20}
-                          className='text-(--secondary-color)'
-                        />
+                        <FloatingIcon
+                          size='sm'
+                          animationDelayClass={
+                            themeSetIndex % 2 === 1 ? '[animation-delay:120ms]' : undefined
+                          }
+                        >
+                          <themeSet.icon />
+                        </FloatingIcon>
                         {themeSet.name.startsWith('Premium') ? (
                           <span>
                             <span className='text-(--main-color)'>Premium</span>
@@ -554,7 +591,9 @@ const WelcomeModal = () => {
           <div className='space-y-6'>
             <div className='space-y-2 text-center'>
               <h2 className='flex items-center justify-center gap-2 text-2xl font-bold text-(--main-color)'>
-                <Type size={28} />
+                <FloatingIcon size='lg'>
+                  <Type />
+                </FloatingIcon>
                 {t('steps.fonts.title')}
               </h2>
               <p className='text-(--secondary-color)'>
