@@ -5,7 +5,7 @@
     "dont": "片手で受け取ってすぐポケットに入れる",
     "note": "商談中は机上に置くのが一般的。",
     "id": 1,
-    "issued": false,
+    "issued": true,
     "completed": false
   },
   {
@@ -14,7 +14,7 @@
     "dont": "土足で室内に上がる",
     "note": "家庭・旅館では基本マナー。",
     "id": 2,
-    "issued": true,
+    "issued": false,
     "completed": false
   },
   {
@@ -77,7 +77,7 @@
     "dont": "話を遮る",
     "note": "合意形成を重視する文化。",
     "id": 9,
-    "issued": false,
+    "issued": true,
     "completed": false
   },
   {
@@ -122,7 +122,7 @@
     "dont": "初対面でタメ口を使う",
     "note": "距離感が縮まるまでは敬語が無難。",
     "id": 14,
-    "issued": false,
+    "issued": true,
     "completed": false
   },
   {
@@ -149,7 +149,7 @@
     "dont": "ゴミを放置する",
     "note": "ゴミ箱が少ない地域がある。",
     "id": 17,
-    "issued": false,
+    "issued": true,
     "completed": false
   },
   {
@@ -158,8 +158,8 @@
     "dont": "笑いながら浅く頭を下げる",
     "note": "丁寧さは姿勢で伝わる。",
     "id": 18,
-    "issued": true,
-    "completed": false
+    "issued": false,
+    "completed": true
   },
   {
     "situation": "エスカレーター 1",
@@ -185,7 +185,7 @@
     "dont": "片手で受け取ってすぐポケットに入れる",
     "note": "商談中は机上に置くのが一般的。",
     "id": 21,
-    "issued": false,
+    "issued": true,
     "completed": false
   },
   {
@@ -194,8 +194,8 @@
     "dont": "土足で室内に上がる",
     "note": "家庭・旅館では基本マナー。",
     "id": 22,
-    "issued": true,
-    "completed": false
+    "issued": false,
+    "completed": true
   },
   {
     "situation": "電車内 2",
@@ -203,7 +203,7 @@
     "dont": "通話を続ける",
     "note": "混雑時は特に配慮する。",
     "id": 23,
-    "issued": true,
+    "issued": false,
     "completed": false
   },
   {
@@ -221,8 +221,8 @@
     "dont": "食べ終わってすぐ席を立つ",
     "note": "店でも家庭でも使える。",
     "id": 25,
-    "issued": true,
-    "completed": false
+    "issued": false,
+    "completed": true
   },
   {
     "situation": "箸の作法 2",
@@ -320,7 +320,7 @@
     "dont": "先に一人で飲み始める",
     "note": "場の一体感を重視。",
     "id": 36,
-    "issued": true,
+    "issued": false,
     "completed": false
   },
   {
@@ -374,8 +374,8 @@
     "dont": "土足で室内に上がる",
     "note": "家庭・旅館では基本マナー。",
     "id": 42,
-    "issued": true,
-    "completed": false
+    "issued": false,
+    "completed": true
   },
   {
     "situation": "電車内 3",
@@ -392,7 +392,7 @@
     "dont": "無言で食べ始める",
     "note": "感謝を示す慣習。",
     "id": 44,
-    "issued": false,
+    "issued": true,
     "completed": false
   },
   {
@@ -401,7 +401,7 @@
     "dont": "食べ終わってすぐ席を立つ",
     "note": "店でも家庭でも使える。",
     "id": 45,
-    "issued": false,
+    "issued": true,
     "completed": false
   },
   {
@@ -419,8 +419,8 @@
     "dont": "参道の中央を歩く",
     "note": "中央は神様の通り道とされる。",
     "id": 47,
-    "issued": true,
-    "completed": false
+    "issued": false,
+    "completed": true
   },
   {
     "situation": "温泉 3",
@@ -428,7 +428,7 @@
     "dont": "タオルを湯船に入れる",
     "note": "共同浴場の基本ルール。",
     "id": 48,
-    "issued": true,
+    "issued": false,
     "completed": false
   },
   {
@@ -545,7 +545,7 @@
     "dont": "片手で受け取ってすぐポケットに入れる",
     "note": "商談中は机上に置くのが一般的。",
     "id": 61,
-    "issued": false,
+    "issued": true,
     "completed": false
   },
   {
@@ -554,7 +554,7 @@
     "dont": "土足で室内に上がる",
     "note": "家庭・旅館では基本マナー。",
     "id": 62,
-    "issued": true,
+    "issued": false,
     "completed": false
   },
   {
@@ -563,8 +563,8 @@
     "dont": "通話を続ける",
     "note": "混雑時は特に配慮する。",
     "id": 63,
-    "issued": true,
-    "completed": false
+    "issued": false,
+    "completed": true
   },
   {
     "situation": "食事前 4",
@@ -572,7 +572,7 @@
     "dont": "無言で食べ始める",
     "note": "感謝を示す慣習。",
     "id": 64,
-    "issued": false,
+    "issued": true,
     "completed": false
   },
   {
@@ -590,7 +590,7 @@
     "dont": "ご飯に箸を立てる",
     "note": "立て箸は弔事連想のため避ける。",
     "id": 66,
-    "issued": false,
+    "issued": true,
     "completed": false
   },
   {
@@ -626,8 +626,10 @@
     "dont": "割り込む",
     "note": "駅・店頭では順番厳守。",
     "id": 70,
-    "issued": true,
-    "completed": false
+    "issued": false,
+    "completed": true,
+    "completedBy": "armorbreak001",
+    "completedPR": 13163
   },
   {
     "situation": "贈り物 4",
@@ -680,7 +682,7 @@
     "dont": "先に一人で飲み始める",
     "note": "場の一体感を重視。",
     "id": 76,
-    "issued": false,
+    "issued": true,
     "completed": false
   },
   {
@@ -689,8 +691,8 @@
     "dont": "ゴミを放置する",
     "note": "ゴミ箱が少ない地域がある。",
     "id": 77,
-    "issued": false,
-    "completed": true
+    "issued": true,
+    "completed": false
   },
   {
     "situation": "お辞儀 4",
@@ -707,7 +709,7 @@
     "dont": "両側を塞ぐ",
     "note": "地域差に注意。",
     "id": 79,
-    "issued": true,
+    "issued": false,
     "completed": false
   },
   {
@@ -725,8 +727,8 @@
     "dont": "片手で受け取ってすぐポケットに入れる",
     "note": "商談中は机上に置くのが一般的。",
     "id": 81,
-    "issued": true,
-    "completed": false
+    "issued": false,
+    "completed": true
   },
   {
     "situation": "訪問時の玄関 5",
@@ -743,7 +745,7 @@
     "dont": "通話を続ける",
     "note": "混雑時は特に配慮する。",
     "id": 83,
-    "issued": true,
+    "issued": false,
     "completed": false
   },
   {
@@ -770,7 +772,7 @@
     "dont": "ご飯に箸を立てる",
     "note": "立て箸は弔事連想のため避ける。",
     "id": 86,
-    "issued": false,
+    "issued": true,
     "completed": false
   },
   {
@@ -779,7 +781,7 @@
     "dont": "参道の中央を歩く",
     "note": "中央は神様の通り道とされる。",
     "id": 87,
-    "issued": false,
+    "issued": true,
     "completed": false
   },
   {
@@ -861,7 +863,7 @@
     "note": "場の一体感を重視。",
     "id": 96,
     "issued": false,
-    "completed": false
+    "completed": true
   },
   {
     "situation": "公共スペース 5",
@@ -878,8 +880,8 @@
     "dont": "笑いながら浅く頭を下げる",
     "note": "丁寧さは姿勢で伝わる。",
     "id": 98,
-    "issued": true,
-    "completed": false
+    "issued": false,
+    "completed": true
   },
   {
     "situation": "エスカレーター 5",
@@ -887,7 +889,7 @@
     "dont": "両側を塞ぐ",
     "note": "地域差に注意。",
     "id": 99,
-    "issued": true,
+    "issued": false,
     "completed": false
   },
   {
@@ -959,8 +961,8 @@
     "dont": "参道の中央を歩く",
     "note": "中央は神様の通り道とされる。",
     "id": 107,
-    "issued": true,
-    "completed": false
+    "issued": false,
+    "completed": true
   },
   {
     "situation": "温泉 6",
@@ -968,7 +970,7 @@
     "dont": "タオルを湯船に入れる",
     "note": "共同浴場の基本ルール。",
     "id": 108,
-    "issued": false,
+    "issued": true,
     "completed": false
   },
   {
@@ -995,7 +997,7 @@
     "dont": "値段を強調する",
     "note": "謙遜表現が好まれる。",
     "id": 111,
-    "issued": false,
+    "issued": true,
     "completed": false
   },
   {
@@ -1067,8 +1069,8 @@
     "dont": "両側を塞ぐ",
     "note": "地域差に注意。",
     "id": 119,
-    "issued": true,
-    "completed": false
+    "issued": false,
+    "completed": true
   },
   {
     "situation": "訪問手土産 6",

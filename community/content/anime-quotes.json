@@ -1,5 +1,12 @@
 [
   {
+    "japanese": "なにィ！？",
+    "romaji": "Nanii!?",
+    "english": "What?! (alt wording 9) (alt wording 61)",
+    "anime": "JoJo's Bizarre Adventure: Stardust Crusaders",
+    "character": "Joseph Joestar"
+  },
+  {
     "japanese": "笑えばいいと思うよ",
     "romaji": "Waraeba ii to omou yo",
     "english": "I think you should just laugh.",
@@ -107,7 +114,7 @@
   {
     "japanese": "駆逐してやる!この世から一匹残らず!",
     "romaji": "Kuchiku shite yaru! Kono yo kara ippiki nokorazu!",
-    "english": "I'll exterminate them! Every last one from this world! (alt wording 36)",
+    "english": "I'll exterminate them! Every last one from this world! (alt wording 36) (alt wording 88)",
     "anime": "Attack on Titan",
     "character": "Eren Yeager"
   },
@@ -423,5 +430,129 @@
   "english": "Bucciarati is here! (alt wording 17) (alt wording 69)",
   "anime": "JoJo's Bizarre Adventure: Golden Wind",
   "character": "Narancia Ghirga"
+    "japanese": "オレ様の美技にブギウギ",
+    "romaji": "Ore-sama no bigi ni bugiugi",
+    "english": "Dance to my beautiful technique!",
+    "anime": "The Prince of Tennis",
+    "character": "Keigo Atobe"
+  },
+  {
+    "japanese": "イエス！イエス！イエス！イエス！",
+    "romaji": "Iesu! Iesu! Iesu! Iesu!",
+    "english": "Yes! Yes! Yes! Yes! (alt wording 2)",
+    "anime": "JoJo's Bizarre Adventure: Stardust Crusaders",
+    "character": "DIO"
+  },
+  {
+    "japanese": "我々一人ひとりに与えられている魂は一つだけです。大切になさい",
+    "romaji": "Wareware hitorihitori ni ataerarete iru tamashii wa hitotsu dake desu. Taisetsu ni nasai.",
+    "english": "Each of us is only given one soul. Take good care of yours.",
+    "anime": "Bleach",
+    "character": "Kisuke Urahara"
+  },
+  {
+    "japanese": "このジョルノ・ジョバァーナには夢がある！",
+    "romaji": "Kono Joruno Jobana ni wa yume ga aru!",
+    "english": "I, Giorno Giovanna, have a dream! (alt wording 5)",
+    "anime": "JoJo's Bizarre Adventure: Golden Wind",
+    "character": "Giorno Giovanna"
+  },
+  {
+    "japanese": "マママママ",
+    "romaji": "Mama mama mama",
+    "english": "Mama mama mama. (alt wording 29)",
+    "anime": "One Piece",
+    "character": "Charlotte Linlin (Big Mom)"
+  },
+  {
+    "japanese": "マママママ",
+    "romaji": "Mama mama mama",
+    "english": "Mama mama mama.",
+    "anime": "One Piece",
+    "character": "Charlotte Linlin (Big Mom)"
+  },
+  {
+    "japanese": "僕はもう逃げない!",
+    "romaji": "Boku wa mou nigenai!",
+    "english": "I won't run away anymore! (alt wording 47)",
+    "anime": "Hunter x Hunter",
+    "character": "Gon Freecss"
+  },
+  {
+    "japanese": "まだだ、まだ終わらんよ！",
+    "romaji": "Mada da, mada owaran yo!",
+    "english": "Not yet! It's not over yet! (alt wording 22)",
+    "anime": "Mobile Suit Gundam",
+    "character": "Char Aznable"
+  },
+  {
+  "japanese": "何ッ！？",
+  "romaji": "Nani!?",
+  "english": "What?! (alt wording 19)",
+  "anime": "Fist of the North Star",
+  "character": "Shin"
+  },
+  {
+  "japanese": "イエス！イエス！イエス！イエス！",
+  "romaji": "Iesu! Iesu! Iesu! Iesu!",
+  "english": "Yes! Yes! Yes! Yes! (alt wording 2) (alt wording 54)",
+  "anime": "JoJo's Bizarre Adventure: Stardust Crusaders",
+  "character": "DIO"
+  },
+  {
+  "japanese": "レロレロレロレロ",
+  "romaji": "Rero rero rero rero",
+  "english": "Lero lero lero lero. (alt wording 27)",
+  "anime": "JoJo's Bizarre Adventure: Stardust Crusaders",
+  "character": "Noriaki Kakyoin"
+},
+{
+  "japanese": "おまえはもう死んでいる",
+  "romaji": "Omae wa mou shindeiru",
+  "english": "You're already dead. (alt wording 18)",
+  "anime": "Fist of the North Star",
+  "character": "Kenshiro"
+},
+  {
+  "japanese": "おれは人間を超越する！",
+  "romaji": "Ore wa ningen o chouetsu suru!",
+  "english": "I will transcend humanity!",
+  "anime": "JoJo's Bizarre Adventure: Battle Tendency",
+  "character": "Kars"
+},
+{
+  "japanese": "おれは人間を超越する！",
+  "romaji": "Ore wa ningen o chouetsu suru!",
+  "english": "I will transcend humanity!",
+  "anime": "JoJo's Bizarre Adventure: Battle Tendency",
+  "character": "Kars"
+},
+  {
+    "japanese": "オラに元気を分けてくれ!",
+    "romaji": "Ora ni genki o wakete kure!",
+    "english": "Lend me your energy! (alt wording 52)",
+    "anime": "Dragon Ball Z",
+    "character": "Son Goku"
+  },
+  {
+  "japanese": "やれやれだぜ。",
+  "romaji": "Yare yare da ze.",
+  "english": "Good grief.",
+  "anime": "JoJo's Bizarre Adventure: Stardust Crusaders",
+  "character": "Jotaro Kujo"
+},
+{
+  "japanese": "俺を誰だと思ってやがる!",
+  "romaji": "Ore o dare da to omotte yagaru!",
+  "english": "Who the hell do you think I am! (alt wording 46)",
+  "anime": "Gurren Lagann",
+  "character": "Kamina"
+},
+{
+  "japanese": "やれやれだぜ",
+  "romaji": "Yare yare da ze",
+  "english": "Good grief. (alt wording 6)",
+  "anime": "JoJo's Bizarre Adventure: Stardust Crusaders",
+  "character": "Jotaro Kujo"
 }
 ]
