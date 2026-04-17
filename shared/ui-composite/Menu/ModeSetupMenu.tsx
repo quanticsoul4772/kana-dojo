@@ -244,7 +244,7 @@ const ModeSetupMenu = ({
           <div className='absolute inset-0 -z-20 bg-(--background-color)' />
           <div className='absolute inset-0 -z-10'>
             <Suspense fallback={<></>}>
-              <Decorations expandDecorations={false} />
+              <Decorations expandDecorations={false} interactive={true} />
             </Suspense>
           </div>
         </>
