@@ -6,24 +6,23 @@ import { kana } from '@/features/Kana/data/kana';
 import useKanaStore from '@/features/Kana/store/useKanaStore';
 import { Random } from 'random-js';
 import { useCorrect, useError, useClick } from '@/shared/hooks/generic/useAudio';
-// import GameIntel from '@/shared/components/Game/GameIntel';
-import { getGlobalAdaptiveSelector } from '@/shared/lib/adaptiveSelection';
-import Stars from '@/shared/components/Game/Stars';
+// import GameIntel from '@/shared/ui-composite/Game/GameIntel';
+import { getGlobalAdaptiveSelector } from '@/shared/utils/adaptiveSelection';
+import Stars from '@/shared/ui-composite/Game/Stars';
 import { useCrazyModeTrigger } from '@/features/CrazyMode/hooks/useCrazyModeTrigger';
 import { useStatsStore } from '@/features/Progress';
 import { useShallow } from 'zustand/react/shallow';
-import { useStopwatch } from 'react-timer-hook';
 import { useSmartReverseMode } from '@/shared/hooks/game/useSmartReverseMode';
 import { useTilesMode } from '@/shared/hooks/game/useTilesMode';
-import { GameBottomBar } from '@/shared/components/Game/GameBottomBar';
-import { cn } from '@/shared/lib/utils';
+import { GameBottomBar } from '@/shared/ui-composite/Game/GameBottomBar';
+import { cn } from '@/shared/utils/utils';
 import { useThemePreferences } from '@/features/Preferences';
 import {
   BottomBarState,
   gameContentVariants,
   useTilesModeActionKey,
-} from '@/shared/components/Game/TilesModeShared';
-import TilesModeGrid from '@/shared/components/Game/TilesModeGrid';
+} from '@/shared/ui-composite/Game/TilesModeShared';
+import TilesModeGrid from '@/shared/ui-composite/Game/TilesModeGrid';
 import useClassicSessionStore from '@/shared/store/useClassicSessionStore';
 
 const random = new Random();
@@ -86,7 +85,26 @@ const KanaTilesMode = ({
   const wordLength = isWordLengthControlled ? externalWordLength : internalWordLength;
 
   // Answer timing for speed achievements
-  const speedStopwatch = useStopwatch({ autoStart: false });
+  const answerStartTimeRef = useRef<number | null>(null);
+  const answerElapsedMsRef = useRef(0);
+  const startAnswerTimer = useCallback(() => {
+    answerElapsedMsRef.current = 0;
+    answerStartTimeRef.current = performance.now();
+  }, []);
+  const pauseAnswerTimer = useCallback(() => {
+    if (answerStartTimeRef.current !== null) {
+      answerElapsedMsRef.current += performance.now() - answerStartTimeRef.current;
+      answerStartTimeRef.current = null;
+    }
+  }, []);
+  const getAnswerTimeMs = useCallback(() => {
+    if (answerStartTimeRef.current === null) return answerElapsedMsRef.current;
+    return answerElapsedMsRef.current + (performance.now() - answerStartTimeRef.current);
+  }, []);
+  const resetAnswerTimer = useCallback(() => {
+    answerStartTimeRef.current = null;
+    answerElapsedMsRef.current = 0;
+  }, []);
   const { playCorrect } = useCorrect();
   const { playErrorTwice } = useError();
   const { playClick } = useClick();
@@ -245,10 +263,8 @@ const KanaTilesMode = ({
     setIsCelebrating(false);
     setBottomBarState('check');
     // Start timing for the new question
-    speedStopwatch.reset();
-    speedStopwatch.start();
-  }, [generateWord]);
-  // Note: speedStopwatch deliberately excluded - only calling methods
+    startAnswerTimer();
+  }, [generateWord, startAnswerTimer]);
 
   useEffect(() => {
     if (!hasInitializedResetRef.current) {
@@ -270,13 +286,12 @@ const KanaTilesMode = ({
     resetGame();
   }, [isReverse, wordLength, resetGame]);
 
-  // Pause stopwatch when game is hidden
+  // Pause timer when game is hidden
   useEffect(() => {
     if (isHidden) {
-      speedStopwatch.pause();
+      pauseAnswerTimer();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isHidden]); // speedStopwatch intentionally excluded - only calling methods
+  }, [isHidden, pauseAnswerTimer]);
 
   // Keyboard shortcut for Enter/Space to trigger button
   useTilesModeActionKey(buttonRef);
@@ -286,8 +301,8 @@ const KanaTilesMode = ({
     if (placedTileIds.length === 0) return;
 
     // Stop timing and record answer time
-    speedStopwatch.pause();
-    const answerTimeMs = speedStopwatch.totalMilliseconds;
+    pauseAnswerTimer();
+    const answerTimeMs = getAnswerTimeMs();
 
     playClick();
     setIsChecking(true);
@@ -305,7 +320,7 @@ const KanaTilesMode = ({
       // Record answer time for speed achievements
       addCorrectAnswerTime(answerTimeMs / 1000);
       recordAnswerTime(answerTimeMs);
-      speedStopwatch.reset();
+      resetAnswerTimer();
 
       playCorrect();
       triggerCrazyMode();
@@ -342,7 +357,7 @@ const KanaTilesMode = ({
         extra: { isReverse, wordLength },
       });
     } else {
-      speedStopwatch.reset();
+      resetAnswerTimer();
       playErrorTwice();
       triggerCrazyMode();
       incrementWrongStreak();
@@ -410,7 +425,9 @@ const KanaTilesMode = ({
     isWordLengthControlled,
     addCorrectAnswerTime,
     recordAnswerTime,
-    // speedStopwatch intentionally excluded - only calling methods
+    pauseAnswerTimer,
+    getAnswerTimeMs,
+    resetAnswerTimer,
   ]);
 
   // Handle Continue button (only for correct answers)
@@ -443,10 +460,8 @@ const KanaTilesMode = ({
     setIsChecking(false);
     setBottomBarState('check');
     // Restart timing for the retry
-    speedStopwatch.reset();
-    speedStopwatch.start();
-  }, [playClick]);
-  // Note: speedStopwatch deliberately excluded - only calling methods
+    startAnswerTimer();
+  }, [playClick, startAnswerTimer]);
 
   // Handle tile click - add or remove
   const handleTileClick = useCallback(
@@ -460,8 +475,7 @@ const KanaTilesMode = ({
         setIsChecking(false);
         setBottomBarState('check');
         // Restart timing for the retry
-        speedStopwatch.reset();
-        speedStopwatch.start();
+        startAnswerTimer();
       }
 
       // Normal tile add/remove logic
@@ -471,9 +485,8 @@ const KanaTilesMode = ({
           : [...prevIds, id],
       );
     },
-    [isChecking, bottomBarState, playClick],
+    [isChecking, bottomBarState, playClick, startAnswerTimer],
   );
-  // Note: speedStopwatch deliberately excluded - only calling methods
 
   // Not enough characters for tiles mode
   const requiredTileCount = wordLength <= 1 ? 3 : wordLength === 2 ? 4 : 5;
@@ -569,3 +582,4 @@ const KanaTilesMode = ({
 };
 
 export default KanaTilesMode;
+

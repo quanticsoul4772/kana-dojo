@@ -5,18 +5,17 @@ import { motion } from 'framer-motion';
 import { toHiragana } from 'wanakana';
 import { IVocabObj } from '@/features/Vocabulary/store/useVocabStore';
 import { useClick, useCorrect, useError } from '@/shared/hooks/generic/useAudio';
-import { useStopwatch } from 'react-timer-hook';
 import { useGameStats, useStatsDisplay } from '@/features/Progress';
-import Stars from '@/shared/components/Game/Stars';
-import AnswerSummary from '@/shared/components/Game/AnswerSummary';
-import SSRAudioButton from '@/shared/components/audio/SSRAudioButton';
-import FuriganaText from '@/shared/components/text/FuriganaText';
+import Stars from '@/shared/ui-composite/Game/Stars';
+import AnswerSummary from '@/shared/ui-composite/Game/AnswerSummary';
+import SSRAudioButton from '@/shared/ui-composite/audio/SSRAudioButton';
+import FuriganaText from '@/shared/ui-composite/text/FuriganaText';
 import { useCrazyModeTrigger } from '@/features/CrazyMode/hooks/useCrazyModeTrigger';
-import { getGlobalAdaptiveSelector } from '@/shared/lib/adaptiveSelection';
-import { GameBottomBar } from '@/shared/components/Game/GameBottomBar';
+import { getGlobalAdaptiveSelector } from '@/shared/utils/adaptiveSelection';
+import { GameBottomBar } from '@/shared/ui-composite/Game/GameBottomBar';
 import useClassicSessionStore from '@/shared/store/useClassicSessionStore';
 import { useThemePreferences } from '@/features/Preferences';
-import { cn } from '@/shared/lib/utils';
+import { cn } from '@/shared/utils/utils';
 
 // Get the global adaptive selector for weighted character selection
 const adaptiveSelector = getGlobalAdaptiveSelector();
@@ -41,7 +40,8 @@ const VocabInputGame = ({
 
   const isGlassMode = useThemePreferences().isGlassMode;
 
-  const speedStopwatch = useStopwatch({ autoStart: false });
+  const answerStartTimeRef = useRef<number | null>(null);
+  const elapsedTimeMsRef = useRef(0);
 
   const { playClick } = useClick();
   const { playCorrect } = useCorrect();
@@ -87,6 +87,26 @@ const VocabInputGame = ({
 
   const [displayAnswerSummary, setDisplayAnswerSummary] = useState(false);
   const [promptSequence, setPromptSequence] = useState(0);
+  const pauseTimer = useCallback(() => {
+    if (answerStartTimeRef.current !== null) {
+      elapsedTimeMsRef.current += performance.now() - answerStartTimeRef.current;
+      answerStartTimeRef.current = null;
+    }
+  }, []);
+  const getElapsedTimeMs = useCallback(() => {
+    if (answerStartTimeRef.current !== null) {
+      return elapsedTimeMsRef.current + (performance.now() - answerStartTimeRef.current);
+    }
+    return elapsedTimeMsRef.current;
+  }, []);
+  const resetTimer = useCallback(() => {
+    answerStartTimeRef.current = null;
+    elapsedTimeMsRef.current = 0;
+  }, []);
+  const startTimer = useCallback(() => {
+    answerStartTimeRef.current = performance.now();
+    elapsedTimeMsRef.current = 0;
+  }, []);
 
   // Generate new character - defined before useCallback that uses it
   const generateNewCharacter = useCallback(() => {
@@ -112,9 +132,8 @@ const VocabInputGame = ({
     generateNewCharacter();
     setPromptSequence(prev => prev + 1);
     setBottomBarState('check');
-    speedStopwatch.reset();
-    speedStopwatch.start();
-  }, [playClick, generateNewCharacter, speedStopwatch]);
+    startTimer();
+  }, [playClick, generateNewCharacter, startTimer]);
 
   useEffect(() => {
     if (inputRef.current && bottomBarState === 'check') {
@@ -148,9 +167,8 @@ const VocabInputGame = ({
   }, [bottomBarState]);
 
   useEffect(() => {
-    if (isHidden) speedStopwatch.pause();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isHidden]);
+    if (isHidden) pauseTimer();
+  }, [isHidden, pauseTimer]);
 
   if (!selectedWordObjs || selectedWordObjs.length === 0) {
     return null;
@@ -187,9 +205,9 @@ const VocabInputGame = ({
   };
 
   const handleCorrectAnswer = () => {
-    speedStopwatch.pause();
-    const answerTimeMs = speedStopwatch.totalMilliseconds;
-    speedStopwatch.reset();
+    pauseTimer();
+    const answerTimeMs = getElapsedTimeMs();
+    resetTimer();
     setCurrentWordObj(correctWordObj as IVocabObj);
 
     playCorrect();
@@ -386,3 +404,4 @@ const VocabInputGame = ({
 };
 
 export default VocabInputGame;
+

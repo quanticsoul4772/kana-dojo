@@ -5,26 +5,25 @@ import clsx from 'clsx';
 import useKanjiStore, { IKanjiObj } from '@/features/Kanji/store/useKanjiStore';
 import { Random } from 'random-js';
 import { useCorrect, useError, useClick } from '@/shared/hooks/generic/useAudio';
-import { getGlobalAdaptiveSelector } from '@/shared/lib/adaptiveSelection';
-import Stars from '@/shared/components/Game/Stars';
+import { getGlobalAdaptiveSelector } from '@/shared/utils/adaptiveSelection';
+import Stars from '@/shared/ui-composite/Game/Stars';
 import { useCrazyModeTrigger } from '@/features/CrazyMode/hooks/useCrazyModeTrigger';
 import { useStatsStore } from '@/features/Progress';
 import { useShallow } from 'zustand/react/shallow';
-import { useStopwatch } from 'react-timer-hook';
 import { useSmartReverseMode } from '@/shared/hooks/game/useSmartReverseMode';
 import { useTilesMode } from '@/shared/hooks/game/useTilesMode';
-import { GameBottomBar } from '@/shared/components/Game/GameBottomBar';
-import FuriganaText from '@/shared/components/text/FuriganaText';
-import AnswerSummary from '@/shared/components/Game/AnswerSummary';
+import { GameBottomBar } from '@/shared/ui-composite/Game/GameBottomBar';
+import FuriganaText from '@/shared/ui-composite/text/FuriganaText';
+import AnswerSummary from '@/shared/ui-composite/Game/AnswerSummary';
 import { CircleCheck } from 'lucide-react';
-import { cn } from '@/shared/lib/utils';
+import { cn } from '@/shared/utils/utils';
 import { useThemePreferences } from '@/features/Preferences';
 import {
   BottomBarState,
   gameContentVariants,
   useTilesModeActionKey,
-} from '@/shared/components/Game/TilesModeShared';
-import TilesModeGrid from '@/shared/components/Game/TilesModeGrid';
+} from '@/shared/ui-composite/Game/TilesModeShared';
+import TilesModeGrid from '@/shared/ui-composite/Game/TilesModeGrid';
 import useClassicSessionStore from '@/shared/store/useClassicSessionStore';
 
 const random = new Random();
@@ -83,7 +82,26 @@ const KanjiTilesMode = ({
   const isGlassMode = useThemePreferences().isGlassMode;
 
   // Answer timing for speed achievements
-  const speedStopwatch = useStopwatch({ autoStart: false });
+  const answerStartTimeRef = useRef<number | null>(null);
+  const answerElapsedMsRef = useRef(0);
+  const startAnswerTimer = useCallback(() => {
+    answerElapsedMsRef.current = 0;
+    answerStartTimeRef.current = performance.now();
+  }, []);
+  const pauseAnswerTimer = useCallback(() => {
+    if (answerStartTimeRef.current !== null) {
+      answerElapsedMsRef.current += performance.now() - answerStartTimeRef.current;
+      answerStartTimeRef.current = null;
+    }
+  }, []);
+  const getAnswerTimeMs = useCallback(() => {
+    if (answerStartTimeRef.current === null) return answerElapsedMsRef.current;
+    return answerElapsedMsRef.current + (performance.now() - answerStartTimeRef.current);
+  }, []);
+  const resetAnswerTimer = useCallback(() => {
+    answerStartTimeRef.current = null;
+    answerElapsedMsRef.current = 0;
+  }, []);
   const { playCorrect } = useCorrect();
   const { playErrorTwice } = useError();
   const { playClick } = useClick();
@@ -198,20 +216,19 @@ const KanjiTilesMode = ({
     setBottomBarState('check');
     setDisplayAnswerSummary(false);
     // Start timing for the new question
-    speedStopwatch.reset();
-    speedStopwatch.start();
-  }, [generateQuestion]);
+    startAnswerTimer();
+  }, [generateQuestion, startAnswerTimer]);
 
   useEffect(() => {
     resetGame();
   }, [isReverse, resetGame]);
 
-  // Pause stopwatch when game is hidden
+  // Pause timer when game is hidden
   useEffect(() => {
     if (isHidden) {
-      speedStopwatch.pause();
+      pauseAnswerTimer();
     }
-  }, [isHidden]);
+  }, [isHidden, pauseAnswerTimer]);
 
   // Keyboard shortcut for Enter/Space to trigger button
   useTilesModeActionKey(buttonRef);
@@ -221,8 +238,8 @@ const KanjiTilesMode = ({
     if (placedTileIds.length === 0) return;
 
     // Stop timing and record answer time
-    speedStopwatch.pause();
-    const answerTimeMs = speedStopwatch.totalMilliseconds;
+    pauseAnswerTimer();
+    const answerTimeMs = getAnswerTimeMs();
 
     playClick();
     setIsChecking(true);
@@ -237,7 +254,7 @@ const KanjiTilesMode = ({
       // Record answer time for speed achievements
       addCorrectAnswerTime(answerTimeMs / 1000);
       recordAnswerTime(answerTimeMs);
-      speedStopwatch.reset();
+      resetAnswerTimer();
 
       playCorrect();
       triggerCrazyMode();
@@ -278,7 +295,7 @@ const KanjiTilesMode = ({
         extra: { isReverse },
       });
     } else {
-      speedStopwatch.reset();
+      resetAnswerTimer();
       playErrorTwice();
       triggerCrazyMode();
       incrementWrongStreak();
@@ -335,6 +352,9 @@ const KanjiTilesMode = ({
     isReverse,
     addCorrectAnswerTime,
     recordAnswerTime,
+    pauseAnswerTimer,
+    getAnswerTimeMs,
+    resetAnswerTimer,
   ]);
 
   // Handle Continue button (only for correct answers)
@@ -363,9 +383,8 @@ const KanjiTilesMode = ({
     setPlacedTileIds([]);
     setIsChecking(false);
     setBottomBarState('check');
-    speedStopwatch.reset();
-    speedStopwatch.start();
-  }, [playClick]);
+    startAnswerTimer();
+  }, [playClick, startAnswerTimer]);
 
   // Handle tile click - add or remove from placed tiles
   const handleTileClick = useCallback(
@@ -378,8 +397,7 @@ const KanjiTilesMode = ({
       if (bottomBarState === 'wrong') {
         setIsChecking(false);
         setBottomBarState('check');
-        speedStopwatch.reset();
-        speedStopwatch.start();
+        startAnswerTimer();
       }
 
       setPlacedTileIds(prevIds =>
@@ -388,7 +406,7 @@ const KanjiTilesMode = ({
           : [...prevIds, id],
       );
     },
-    [isChecking, bottomBarState, playClick],
+    [isChecking, bottomBarState, playClick, startAnswerTimer],
   );
 
   // Not enough characters
@@ -519,4 +537,5 @@ const KanjiTilesMode = ({
 };
 
 export default KanjiTilesMode;
+
 
